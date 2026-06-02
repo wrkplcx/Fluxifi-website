@@ -142,30 +142,39 @@ export function Solution() {
                   />
                 ))}
 
-                {/* Center hub */}
-                <motion.g
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                  transition={{ duration: 0.5, delay: 0.3 }}
-                  style={{ transformOrigin: `${CENTER}px ${CENTER}px` }}
-                >
-                  <rect
-                    x={CENTER - HUB_SIZE / 2}
-                    y={CENTER - HUB_SIZE / 2}
-                    width={HUB_SIZE}
-                    height={HUB_SIZE}
-                    rx="12"
-                    fill="url(#hubGradient)"
-                  />
-                  <image
-                    href="/images/fluxifi-logo.png"
-                    x={CENTER - 32}
-                    y={CENTER - 32}
-                    width="64"
-                    height="64"
-                    style={{ filter: 'brightness(0)' }}
-                  />
-                </motion.g>
+               {/* Center hub */}
+<motion.g
+  initial={{ opacity: 0, scale: 0 }}
+  animate={isInView ? { opacity: 1, scale: 1 } : {}}
+  transition={{ duration: 0.5, delay: 0.3 }}
+  style={{ transformOrigin: `${CENTER}px ${CENTER}px` }}
+>
+  <rect
+    x={CENTER - HUB_SIZE / 2}
+    y={CENTER - HUB_SIZE / 2}
+    width={HUB_SIZE}
+    height={HUB_SIZE}
+    rx="12"
+    fill="url(#hubGradient)"
+  />
+  <foreignObject
+    x={CENTER - 32}
+    y={CENTER - 32}
+    width="64"
+    height="64"
+  >
+    <img
+      src="/images/fluxifi-logo.png"
+      alt="Fluxifi"
+      style={{
+        width: '64px',
+        height: '64px',
+        objectFit: 'contain',
+        filter: 'brightness(0)',
+      }}
+    />
+  </foreignObject>
+</motion.g>
 
                 {/* Node boxes */}
                 {nodes.map((node, i) => (
