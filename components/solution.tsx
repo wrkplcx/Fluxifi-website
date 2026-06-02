@@ -157,23 +157,33 @@ export function Solution() {
     rx="12"
     fill="url(#hubGradient)"
   />
-  <foreignObject
-    x={CENTER - 32}
-    y={CENTER - 32}
-    width="64"
-    height="64"
+<foreignObject
+  x={CENTER - HUB_SIZE / 2}
+  y={CENTER - HUB_SIZE / 2}
+  width={HUB_SIZE}
+  height={HUB_SIZE}
+>
+  <div
+    style={{
+      width: '100%',
+      height: '100%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    }}
   >
     <img
       src="/images/fluxifi-logo.png"
       alt="Fluxifi"
       style={{
-        width: '64px',
-        height: '64px',
+        width: '70%',
+        height: '70%',
         objectFit: 'contain',
         filter: 'brightness(0)',
       }}
     />
-  </foreignObject>
+  </div>
+</foreignObject>
 </motion.g>
 
                 {/* Node boxes */}
