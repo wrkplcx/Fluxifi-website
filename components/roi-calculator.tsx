@@ -275,12 +275,12 @@ export function ROICalculator() {
           style={{ willChange: 'transform, opacity' }}
           className="text-center mb-12 md:mb-16"
         >
-          <span className="text-[#F4A023] text-sm font-medium uppercase tracking-wider">ROI Calculator</span>
+          <span className="text-[#F4A023] text-sm font-medium uppercase tracking-wider">The Math</span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-semibold text-white mt-4">
-            See what Fluxifi actually costs you.
+            See what Fluxifi saves you.
           </h2>
           <p className="text-lg md:text-xl text-white/50 mt-6 max-w-3xl mx-auto">
-            Compare the real cost of your current approach against a Fluxifi engagement.
+            Run the numbers against your current approach.
           </p>
         </motion.div>
 

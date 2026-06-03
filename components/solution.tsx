@@ -293,7 +293,7 @@ export function Solution() {
                 We own it.
               </h2>
               <p className="text-white/60 text-base md:text-lg mt-6 leading-relaxed max-w-xl">
-                This is what an owner&apos;s rep does. Not just advise, not just review drawings. Ownership on tap.
+                Introducing the first owner&apos; s rep that fully owns strategy, design, coordination, project management, and operations. Not one piece. All of it.
               </p>
             </motion.div>
 
