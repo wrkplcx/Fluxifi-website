@@ -185,7 +185,7 @@ export function TwoPaths() {
                     <span className="text-sm font-medium text-white">$9k/month</span>
                   </div>
                   <p className="text-xs text-white/40 mt-1">Technology standards, equipment specs, system design, and budget frameworks</p>
-                  <p className="text-xs text-white/30 mt-0.5 italic">Replaces 2 FTEs</p>
+                  <p className="text-xs text-white/30 mt-0.5 italic">Equivalent to 2 FTEs</p>
                 </div>
 
                 {/* Row 2: Program Management */}
