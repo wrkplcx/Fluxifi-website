@@ -195,7 +195,7 @@ export function TwoPaths() {
                     <span className="text-sm font-medium text-white">$21k/month</span>
                   </div>
                   <p className="text-xs text-white/40 mt-1">Full project ownership, vendor coordination, milestone tracking, and commissioning</p>
-                  <p className="text-xs text-white/30 mt-0.5 italic">Up to 5 concurrent projects. Replaces 3-4 FTEs.</p>
+                  <p className="text-xs text-white/30 mt-0.5 italic">Up to 5 concurrent projects. Equivalent to 3-4 FTEs.</p>
                 </div>
 
                 {/* Row 2B: Standards + PM */}
@@ -205,7 +205,7 @@ export function TwoPaths() {
                     <span className="text-sm font-medium text-white">$27k/month</span>
                   </div>
                   <p className="text-xs text-white/40 mt-1">Full design and project ownership combined</p>
-                  <p className="text-xs text-white/30 mt-0.5 italic">Replaces 5-6 FTEs</p>
+                  <p className="text-xs text-white/30 mt-0.5 italic">Equivalent to 5-6 FTEs</p>
                 </div>
 
                 {/* Row 3: Ops & Intelligence */}
@@ -215,7 +215,7 @@ export function TwoPaths() {
                     <span className="text-sm font-medium text-white">$24k/month</span>
                   </div>
                   <p className="text-xs text-white/40 mt-1">Day 2 support, issue triage, SLA tracking, and performance reporting</p>
-                  <p className="text-xs text-white/30 mt-0.5 italic">Up to 500 rooms. 501-1,000 rooms at $40/room/month. Above 1,000 rooms custom pricing. Replaces 3+ FTEs.</p>
+                  <p className="text-xs text-white/30 mt-0.5 italic">Up to 500 rooms. 501-1,000 rooms at $40/room/month. Above 1,000 rooms custom pricing. Equivalent to 3+ FTEs.</p>
                 </div>
 
                 {/* Row 4: Full Lifecycle */}
