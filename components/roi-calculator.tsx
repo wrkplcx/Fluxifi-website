@@ -277,7 +277,7 @@ export function ROICalculator() {
         >
           <span className="text-[#F4A023] text-sm font-medium uppercase tracking-wider">ROI Calculator</span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-semibold text-white mt-4">
-            See what Fluxifi actually costs you.
+            See what Fluxifi actually saves you.
           </h2>
           <p className="text-lg md:text-xl text-white/50 mt-6 max-w-3xl mx-auto">
             Compare the real cost of your current approach against a Fluxifi engagement.
