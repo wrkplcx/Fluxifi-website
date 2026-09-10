@@ -95,10 +95,10 @@ export function CoordinationSystem() {
           className="mt-12 flex flex-col items-center justify-center gap-2"
         >
           <p className="text-white/50 text-sm">
-            Powered by Airtable and the Claude API.
+            Enterprise-grade, SOC 2 Type II certified infrastructure.
           </p>
           <p className="text-white/30 text-xs max-w-md text-center">
-            Both SOC 2 Type II certified. Your project data is always visible, always exportable, and never held hostage.
+            Your project data is always visible, always exportable, and never held hostage.
           </p>
         </motion.div>
       </div>

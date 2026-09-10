@@ -2,18 +2,26 @@
 
 import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import Link from "next/link"
+
+type BillingPeriod = "monthly" | "semiAnnual" | "annual"
+
+const billingOptions: { id: BillingPeriod; label: string; note: string }[] = [
+  { id: "monthly", label: "Month-to-month", note: "" },
+  { id: "semiAnnual", label: "Semi-annual", note: "Save more" },
+  { id: "annual", label: "Annual", note: "Best value" }
+]
 
 export function Pricing() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const [billing, setBilling] = useState<BillingPeriod>("monthly")
 
   const tiers = [
     {
       name: "Standards & Architecture",
-      price: "$9k",
-      period: "/month",
+      prices: { monthly: "$9k", semiAnnual: "$8.5k", annual: "$7.5k" },
       description: "Design and documentation",
       features: [
         "Multi-site technology standards",
@@ -26,8 +34,7 @@ export function Pricing() {
     },
     {
       name: "Program Management",
-      price: "$19k",
-      period: "/month",
+      prices: { monthly: "$21k", semiAnnual: "$20k", annual: "$18k" },
       description: "Design + 5 active projects",
       features: [
         "Everything in Standards",
@@ -39,9 +46,21 @@ export function Pricing() {
       featured: false
     },
     {
-      name: "Day 2 Operations",
-      price: "$24k",
-      period: "/month",
+      name: "Standards + PM",
+      prices: { monthly: "$27k", semiAnnual: "$25.5k", annual: "$23k" },
+      description: "Architecture + program delivery",
+      features: [
+        "Standards & Architecture",
+        "Program Management",
+        "Bundled coordination",
+        "Vendor + milestone tracking",
+        "One accountable team"
+      ],
+      featured: false
+    },
+    {
+      name: "Ops & Intelligence",
+      prices: { monthly: "$24k", semiAnnual: "$22.5k", annual: "$20k" },
       description: "Up to 500 rooms",
       features: [
         "Remote support coordination",
@@ -54,8 +73,7 @@ export function Pricing() {
     },
     {
       name: "Full Lifecycle",
-      price: "$42k",
-      period: "/month",
+      prices: { monthly: "$45k", semiAnnual: "$42.5k", annual: "$38k" },
       description: "12-month minimum",
       features: [
         "Standards + PM + Operations",
@@ -81,18 +99,49 @@ export function Pricing() {
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
           <span className="text-[#F4A023] text-sm font-medium uppercase tracking-wider">Pricing</span>
           <h2 className="text-4xl md:text-5xl font-semibold text-white mt-4">
             Transparent pricing
           </h2>
           <p className="text-xl text-white/50 mt-6 max-w-2xl mx-auto">
-            Choose the tier that fits. All include one point of accountability.
+            Choose the module that fits. All include one point of accountability.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Billing toggle */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="flex justify-center mb-16"
+        >
+          <div className="inline-flex items-center gap-1 p-1 rounded-full bg-[#0A0A0A] border border-white/10">
+            {billingOptions.map((option) => (
+              <button
+                key={option.id}
+                type="button"
+                onClick={() => setBilling(option.id)}
+                aria-pressed={billing === option.id}
+                className={`relative px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                  billing === option.id
+                    ? "bg-[#F4A023] text-black"
+                    : "text-white/60 hover:text-white"
+                }`}
+              >
+                {option.label}
+                {option.note && (
+                  <span className={`ml-2 text-xs ${billing === option.id ? "text-black/60" : "text-[#F4A023]"}`}>
+                    {option.note}
+                  </span>
+                )}
+              </button>
+            ))}
+          </div>
+        </motion.div>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
           {tiers.map((tier, index) => (
             <motion.div
               key={index}
@@ -106,7 +155,7 @@ export function Pricing() {
               }`}
             >
               {tier.featured && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-black text-[#F4A023] text-xs font-medium rounded-full">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-black text-[#F4A023] text-xs font-medium rounded-full whitespace-nowrap">
                   Most Popular
                 </div>
               )}
@@ -117,9 +166,9 @@ export function Pricing() {
               
               <div className="mb-2">
                 <span className={`text-4xl font-semibold ${tier.featured ? 'text-black' : 'text-white'}`}>
-                  {tier.price}
+                  {tier.prices[billing]}
                 </span>
-                <span className={tier.featured ? 'text-black/60' : 'text-white/40'}>{tier.period}</span>
+                <span className={tier.featured ? 'text-black/60' : 'text-white/40'}>/month</span>
               </div>
               
               <p className={`text-sm mb-6 ${tier.featured ? 'text-black/60' : 'text-white/40'}`}>
