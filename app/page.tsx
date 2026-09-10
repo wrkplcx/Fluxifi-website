@@ -9,7 +9,6 @@ import { Services } from "@/components/services"
 import { Industries } from "@/components/industries"
 import { Results } from "@/components/results"
 import { ROICalculator } from "@/components/roi-calculator"
-import { Pricing } from "@/components/pricing"
 import { CTA } from "@/components/cta"
 import { Footer } from "@/components/footer"
 
@@ -28,7 +27,6 @@ export default function Home() {
         <Industries />
         <Results />
         <ROICalculator />
-        <Pricing />
         <CTA />
       </main>
       <Footer />
