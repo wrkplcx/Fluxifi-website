@@ -5,10 +5,27 @@ import { useInView } from "framer-motion"
 import { useRef, useState } from "react"
 import Link from "next/link"
 
+type BillingPeriod = "monthly" | "semiAnnual" | "annual"
+
+const billingOptions: { id: BillingPeriod; label: string; note: string }[] = [
+  { id: "monthly", label: "Month-to-month", note: "" },
+  { id: "semiAnnual", label: "Semi-annual", note: "Save more" },
+  { id: "annual", label: "Annual", note: "Best value" },
+]
+
+const modulePrices: Record<string, Record<BillingPeriod, string>> = {
+  standards: { monthly: "$9k", semiAnnual: "$8.5k", annual: "$7.5k" },
+  pm: { monthly: "$21k", semiAnnual: "$20k", annual: "$18k" },
+  standardsPm: { monthly: "$27k", semiAnnual: "$25.5k", annual: "$23k" },
+  ops: { monthly: "$24k", semiAnnual: "$22.5k", annual: "$20k" },
+  lifecycle: { monthly: "$45k", semiAnnual: "$42.5k", annual: "$38k" },
+}
+
 export function TwoPaths() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, amount: 0.1 })
   const [auditOption, setAuditOption] = useState<'spend' | 'health' | 'standards'>('spend')
+  const [billing, setBilling] = useState<BillingPeriod>("monthly")
 
   const auditOutputs = {
     spend: "Output: Prioritized cost reduction opportunities, estimated savings, and recommended action plan.",
@@ -41,6 +58,32 @@ export function TwoPaths() {
           <p className="text-lg md:text-xl text-white/50 mt-6 max-w-2xl mx-auto">
             Start with a sprint or go straight to full ownership. Every path leads to one point of accountability.
           </p>
+
+          {/* Billing toggle */}
+          <div className="flex justify-center mt-8">
+            <div className="inline-flex items-center gap-1 p-1 rounded-full bg-[#111111] border border-white/10">
+              {billingOptions.map((option) => (
+                <button
+                  key={option.id}
+                  type="button"
+                  onClick={() => setBilling(option.id)}
+                  aria-pressed={billing === option.id}
+                  className={`relative px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                    billing === option.id
+                      ? "bg-[#F4A023] text-black"
+                      : "text-white/60 hover:text-white"
+                  }`}
+                >
+                  {option.label}
+                  {option.note && (
+                    <span className={`ml-2 text-xs ${billing === option.id ? "text-black/60" : "text-[#F4A023]"}`}>
+                      {option.note}
+                    </span>
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
         </motion.div>
 
         {/* Card 0 - Ownership Audit */}
@@ -182,7 +225,7 @@ export function TwoPaths() {
                 <div className="py-3 border-b border-white/10">
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-white/70">Standards & Architecture</span>
-                    <span className="text-sm font-medium text-white">$9k/month</span>
+                    <span className="text-sm font-medium text-white">{modulePrices.standards[billing]}/month</span>
                   </div>
                   <p className="text-xs text-white/40 mt-1">Technology standards, equipment specs, system design, and budget frameworks</p>
                   <p className="text-xs text-white/30 mt-0.5 italic">Equivalent to 2 FTEs</p>
@@ -192,7 +235,7 @@ export function TwoPaths() {
                 <div className="py-3 border-b border-white/10">
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-white/70">Program Management</span>
-                    <span className="text-sm font-medium text-white">$21k/month</span>
+                    <span className="text-sm font-medium text-white">{modulePrices.pm[billing]}/month</span>
                   </div>
                   <p className="text-xs text-white/40 mt-1">Full project ownership, vendor coordination, milestone tracking, and commissioning</p>
                   <p className="text-xs text-white/30 mt-0.5 italic">Up to 5 concurrent projects. Equivalent to 3-4 FTEs.</p>
@@ -202,7 +245,7 @@ export function TwoPaths() {
                 <div className="py-3 border-b border-white/10 bg-white/[0.02] -mx-3 px-3">
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-white/70">Standards + PM</span>
-                    <span className="text-sm font-medium text-white">$27k/month</span>
+                    <span className="text-sm font-medium text-white">{modulePrices.standardsPm[billing]}/month</span>
                   </div>
                   <p className="text-xs text-white/40 mt-1">Full design and project ownership combined</p>
                   <p className="text-xs text-white/30 mt-0.5 italic">Equivalent to 5-6 FTEs</p>
@@ -212,7 +255,7 @@ export function TwoPaths() {
                 <div className="py-3 border-b border-white/10">
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-white/70">Ops & Intelligence</span>
-                    <span className="text-sm font-medium text-white">$24k/month</span>
+                    <span className="text-sm font-medium text-white">{modulePrices.ops[billing]}/month</span>
                   </div>
                   <p className="text-xs text-white/40 mt-1">Day 2 support, issue triage, SLA tracking, and performance reporting</p>
                   <p className="text-xs text-white/30 mt-0.5 italic">Up to 500 rooms. 501-1,000 rooms at $40/room/month. Above 1,000 rooms custom pricing. Equivalent to 3+ FTEs.</p>
@@ -223,7 +266,7 @@ export function TwoPaths() {
                   <p className="text-xs text-white/40 line-through mb-1">$54k/month if purchased separately</p>
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-white font-medium">Full Lifecycle (all three)</span>
-                    <span className="text-sm font-medium text-[#F4A023]">$45k/month</span>
+                    <span className="text-sm font-medium text-[#F4A023]">{modulePrices.lifecycle[billing]}/month</span>
                   </div>
                   <p className="text-xs text-white/40 mt-1">Complete end-to-end ownership across all three modules</p>
                   <p className="text-xs text-white/30 mt-0.5 italic">8+ FTE equivalent. One team, full accountability.</p>
