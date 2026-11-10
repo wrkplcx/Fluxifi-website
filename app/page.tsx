@@ -1,35 +1,44 @@
-import { Header } from "@/components/header"
+import type { Metadata } from "next"
 import { Hero } from "@/components/hero"
-import { TransitionLine } from "@/components/transition-line"
-import { Problem } from "@/components/problem"
-import { Solution } from "@/components/solution"
-import { TwoPaths } from "@/components/two-paths"
-import { CoordinationSystem } from "@/components/coordination-system"
-import { Services } from "@/components/services"
-import { Industries } from "@/components/industries"
-import { Results } from "@/components/results"
-import { ROICalculator } from "@/components/roi-calculator"
-import { CTA } from "@/components/cta"
-import { Footer } from "@/components/footer"
+import { ImageSlot } from "@/components/site/image-slot"
+import {
+  HowToStart,
+  OurWork,
+  Problem,
+  ProofBar,
+  Results,
+  WhatWeCover,
+  WhatWeDo,
+  WhoWeWorkWith,
+} from "@/components/home/sections"
+
+export const metadata: Metadata = {
+  title: { absolute: "Fluxifi: AV and IT Design and Project Management" },
+  description:
+    "Fluxifi designs and manages the AV, IT and cabling in your buildings. One team, responsible from first drawing to working room.",
+}
 
 export default function Home() {
   return (
     <>
-      <Header />
-      <main>
-        <Hero />
-        <TransitionLine />
-        <Problem />
-        <Solution />
-        <TwoPaths />
-        <CoordinationSystem />
-        <Services />
-        <Industries />
-        <Results />
-        <ROICalculator />
-        <CTA />
-      </main>
-      <Footer />
+      <Hero
+        image={
+          <ImageSlot
+            slot="hero-image"
+            alt="3D model of a conference room with displays, camera and speakers"
+            className="aspect-[4/3]"
+            priority
+          />
+        }
+      />
+      <ProofBar />
+      <Problem />
+      <WhatWeDo />
+      <WhatWeCover />
+      <WhoWeWorkWith />
+      <OurWork />
+      <Results />
+      <HowToStart />
     </>
   )
 }

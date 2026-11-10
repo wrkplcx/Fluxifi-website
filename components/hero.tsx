@@ -1,26 +1,18 @@
 "use client"
 
-import Link from "next/link"
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion"
+import type { ReactNode } from "react"
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion"
 import { useRef, useEffect, useState } from "react"
+import { BookButton } from "@/components/site/primitives"
 
-export function Hero() {
+export function Hero({ image }: { image: ReactNode }) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"]
-  })
-
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
-
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
   const smoothX = useSpring(mouseX, { stiffness: 30, damping: 20 })
   const smoothY = useSpring(mouseY, { stiffness: 30, damping: 20 })
-
   const bgX = useTransform(smoothX, [-1, 1], [-15, 15])
   const bgY = useTransform(smoothY, [-1, 1], [-10, 10])
-
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -32,12 +24,12 @@ export function Hero() {
         mouseY.set((e.clientY - rect.top) / rect.height - 0.5)
       }
     }
-    window.addEventListener('mousemove', handleMouseMove, { passive: true })
-    return () => window.removeEventListener('mousemove', handleMouseMove)
+    window.addEventListener("mousemove", handleMouseMove, { passive: true })
+    return () => window.removeEventListener("mousemove", handleMouseMove)
   }, [mouseX, mouseY])
 
   return (
-    <section ref={containerRef} className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0A0A0A]">
+    <section ref={containerRef} className="relative overflow-hidden bg-[#0A0A0A] pt-36 pb-20 md:pt-44 md:pb-28">
 
 {/* Circuit board background — muted, behind everything */}
 {mounted && (
@@ -172,100 +164,35 @@ export function Hero() {
   </motion.div>
 )}
 
-      {/* Content */}
-      <motion.div
-        className="relative z-10 max-w-5xl mx-auto px-4 md:px-6 text-center"
-        style={{
-          opacity,
-          willChange: 'opacity',
-        }}
-      >
-        <motion.h1
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold text-white leading-[1.1] tracking-tight"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4, delay: 0.05 }}
-          style={{ willChange: 'opacity' }}
-        >
-          <span className="block">We Own Your Technology</span>
-          <span className="block mt-2">Program. <span className="text-[#F4A023]">End to End.</span></span>
-        </motion.h1>
-
-        <motion.p
-          className="mt-4 md:mt-6 text-base md:text-lg lg:text-xl text-white/60 max-w-3xl mx-auto leading-relaxed"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4, delay: 0.1 }}
-          style={{ willChange: 'opacity' }}
-        >
-          One team. Every vendor. Every location. Concept to Day 2.
-        </motion.p>
-
-        <motion.p
-          className="mt-4 text-xs md:text-sm text-white/40"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4, delay: 0.15 }}
-          style={{ willChange: 'opacity' }}
-        >
-          Actively deployed inside Fortune 100 and enterprise technology programs.
-        </motion.p>
-
-        <motion.div
-          className="mt-10 md:mt-12 flex flex-col sm:flex-row items-center justify-center gap-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4, delay: 0.2 }}
-          style={{ willChange: 'opacity' }}
-        >
-          <Link
-            href="https://calendly.com/fluxifi/fluxifi-intro"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative w-full sm:w-auto px-8 py-4 bg-[#F4A023] text-black font-medium rounded-lg text-lg overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(244,160,35,0.4)]"
-          >
-            <span className="relative z-10">Book a consultation</span>
-            <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity" />
-          </Link>
-          <Link
-            href="#how-it-works"
-            className="px-8 py-4 text-white/70 hover:text-white font-medium text-lg transition-colors flex items-center gap-2 group"
-          >
-            See how it works
-            <motion.svg
-              className="w-4 h-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              animate={{ y: [0, 3, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </motion.svg>
-          </Link>
+      <div className="relative z-10 max-w-6xl mx-auto px-4 md:px-6 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
+          <p className="text-xs md:text-sm text-white/40 mb-4">
+            AV, IT and low-voltage design and project management
+          </p>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-white leading-[1.1] tracking-tight text-balance">
+            {"Your building has a dozen technology vendors. Not one of them answers for whether it works. "}
+            <span className="text-[#F4A023]">We do.</span>
+          </h1>
+          <p className="mt-6 text-base md:text-lg text-white/60 leading-relaxed text-pretty">
+            The screens, cameras, sound, Wi-Fi and cabling that make a building work. We design it, manage everyone
+            who installs it, and answer for the result.
+          </p>
+          <p className="mt-4 text-xs md:text-sm text-white/40 leading-relaxed">
+            For companies opening or renovating many locations, and the architects, contractors and IT providers who
+            work with them.
+          </p>
+          <div className="mt-10">
+            <BookButton />
+          </div>
         </motion.div>
-      </motion.div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:block"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.5 }}
-        style={{ opacity }}
-      >
         <motion.div
-          className="w-6 h-10 border border-white/20 rounded-full flex justify-center pt-2"
-          animate={{ y: [0, 5, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
         >
-          <motion.div
-            className="w-1 h-2 bg-[#F4A023] rounded-full"
-            animate={{ opacity: [0.5, 1, 0.5], y: [0, 4, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-          />
+          {image}
         </motion.div>
-      </motion.div>
+      </div>
     </section>
   )
 }

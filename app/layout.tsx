@@ -1,4 +1,6 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
+import { Header } from '@/components/header'
+import { Footer } from '@/components/footer'
 import { Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import Script from 'next/script'
@@ -10,14 +12,16 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: "We Own Your Technology Program. End to End. | Fluxifi",
-  description: "Fluxifi is the owner's rep for technology in the built environment. One point of accountability from concept through Day 2.",
-  keywords: "owner's rep, built environment technology, multi-site technology, technology coordination, vendor coordination, project management",
+  title: "Fluxifi: AV and IT Design and Project Management",
+  description: "Fluxifi designs and manages the AV, IT and cabling in your buildings. One team, responsible from first drawing to working room.",
   openGraph: {
-    title: "We Own Your Technology Program. End to End. | Fluxifi",
-    description: "Fluxifi is the owner's rep for technology in the built environment. One point of accountability from concept through Day 2.",
+    siteName: 'Fluxifi',
     type: 'website',
   },
+}
+
+export const viewport: Viewport = {
+  themeColor: '#0A0A0A',
 }
 
 export default function RootLayout({
@@ -39,7 +43,9 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.variable} font-sans antialiased bg-[#0A0A0A] text-white`}>
-        {children}
+        <Header />
+        <main>{children}</main>
+        <Footer />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
