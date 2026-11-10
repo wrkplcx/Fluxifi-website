@@ -3,6 +3,7 @@ export const CALENDLY_URL = "https://calendly.com/fluxifi/fluxifi-intro"
 export const NAV_ITEMS = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
+  { label: "Glass", href: "/glass" },
   { label: "Who We Work With", href: "/#who-we-work-with" },
   { label: "About", href: "/about" },
   { label: "FAQ", href: "/faq" },

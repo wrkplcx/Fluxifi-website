@@ -171,6 +171,36 @@ export function OurWork() {
   )
 }
 
+export function GlassPreview() {
+  return (
+    <Section id="glass" className="border-t border-white/5">
+      <div className="grid gap-12 lg:grid-cols-2 items-center">
+        <div>
+          <SearchLine>3D as-built records and room design software</SearchLine>
+          <Heading>Fluxifi Glass. See every room you own.</Heading>
+          <p className="mt-8 text-lg text-white/60 leading-relaxed">
+            Our platform stores your room designs and a 3D record of exactly what was installed in every space. It runs
+            in your account. You own the data.
+          </p>
+          <div className="mt-10">
+            <Link
+              href="/glass"
+              className="inline-flex items-center justify-center px-8 py-4 border border-white/20 text-white font-medium rounded-lg text-lg transition-colors hover:border-[#F4A023] hover:text-[#F4A023] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F4A023]"
+            >
+              See Glass
+            </Link>
+          </div>
+        </div>
+        <ImageSlot
+          slot="glass-preview"
+          alt="Fluxifi Glass showing a 3D room model with its installed equipment list"
+          className="aspect-[4/3]"
+        />
+      </div>
+    </Section>
+  )
+}
+
 const RESULTS = [
   { value: "$7M+", label: "in avoided spend" },
   { value: "30%", label: "lower equipment cost" },

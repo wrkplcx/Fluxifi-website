@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Hero } from "@/components/hero"
 import { ImageSlot } from "@/components/site/image-slot"
 import {
+  GlassPreview,
   HowToStart,
   OurWork,
   Problem,
@@ -37,6 +38,7 @@ export default function Home() {
       <WhatWeCover />
       <WhoWeWorkWith />
       <OurWork />
+      <GlassPreview />
       <Results />
       <HowToStart />
     </>

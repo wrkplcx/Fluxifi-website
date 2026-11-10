@@ -25,6 +25,7 @@ export function Footer() {
               <h2 className="text-white/40 text-xs font-medium uppercase tracking-wider mb-4">Company</h2>
               <nav aria-label="Company" className="flex flex-col gap-3">
                 <Link href="/" className={linkClass}>Home</Link>
+                <Link href="/glass" className={linkClass}>Glass</Link>
                 <Link href="/about" className={linkClass}>About</Link>
                 <Link href="/faq" className={linkClass}>FAQ</Link>
               </nav>
