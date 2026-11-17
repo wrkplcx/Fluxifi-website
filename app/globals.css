@@ -69,44 +69,103 @@
   }
 }
 
-/* Room drawing: the four trade layers slide together on load */
-.drawing-assemble {
-  transform-origin: 410px 300px;
-  animation: drawing-assemble 1.5s cubic-bezier(0.65, 0, 0.25, 1) both;
+/* Motion: slow, precise, mechanical. Gated on .motion-ok (set before paint on desktop without reduced motion). */
+:root {
+  --ease-out-slow: cubic-bezier(0.16, 1, 0.3, 1);
 }
-.drawing-fade {
-  animation: drawing-fade 1.5s ease both;
+
+html.lenis,
+html.lenis body {
+  height: auto;
 }
-@keyframes drawing-assemble {
-  0%,
-  15% {
-    transform: var(--assemble-from);
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.reveal-line {
+  display: block;
+}
+.reveal-line > span {
+  display: block;
+}
+.motion-ok .reveal-line > span {
+  transform: translateY(20px);
+  clip-path: inset(0 -10% 100% -10%);
+  transition:
+    transform 0.8s var(--ease-out-slow),
+    clip-path 0.8s var(--ease-out-slow);
+  transition-delay: calc(var(--i, 0) * 140ms);
+}
+.motion-ok [data-inview="true"] .reveal-line > span {
+  transform: none;
+  clip-path: inset(-30% -10% -30% -10%);
+}
+
+.motion-ok .draw-x {
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 1.6s var(--ease-out-slow) 0.1s;
+}
+.motion-ok [data-inview="true"] .draw-x,
+.motion-ok .draw-x[data-inview="true"] {
+  transform: none;
+}
+
+.motion-ok .guide-y {
+  transform-origin: top center;
+  animation: guide-draw 2.4s var(--ease-out-slow) both;
+}
+@keyframes guide-draw {
+  from {
+    transform: scaleY(0);
   }
-  100% {
+  to {
     transform: none;
   }
 }
-@keyframes drawing-fade {
-  0%,
-  40% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+
+.motion-ok .trace-path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: trace-draw 2s var(--ease-out-slow) 0.4s forwards;
 }
-@media (prefers-reduced-motion: reduce) {
-  .drawing *,
-  .drawing-assemble,
-  .drawing-fade {
-    animation: none !important;
-    transition: none !important;
+@keyframes trace-draw {
+  to {
+    stroke-dashoffset: 0;
   }
 }
 
-/* Smooth scroll */
-html {
-  scroll-behavior: smooth;
+.link-draw {
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  transition: background-size 0.5s var(--ease-out-slow);
+}
+.link-draw:hover,
+.link-draw:focus-visible {
+  background-size: 100% 1px;
+}
+
+.pinned-live {
+  display: none;
+}
+.motion-ok .pinned-live {
+  display: block;
+}
+.motion-ok .pinned-stack {
+  display: none;
+}
+
+.hero-3d {
+  display: none;
+}
+.motion-ok .hero-3d {
+  display: block;
 }
 
 /* Custom scrollbar */

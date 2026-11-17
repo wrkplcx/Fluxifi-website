@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
+import { SmoothScroll } from '@/components/austere/smooth-scroll'
 import { Archivo } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import Script from 'next/script'
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#0A0A0A',
+  themeColor: '#000000',
 }
 
 export default function RootLayout({
@@ -30,8 +31,13 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="scroll-smooth bg-[#0A0A0A]">
+    <html lang="en" className="bg-black" suppressHydrationWarning>
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&matchMedia('(min-width: 1024px)').matches)document.documentElement.classList.add('motion-ok')}catch(e){}`,
+          }}
+        />
         <link rel="preconnect" href="https://calendly.com" />
         {/* Apollo tracking script */}
         <Script
@@ -42,7 +48,8 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${archivo.variable} font-sans antialiased bg-[#0C0F13] text-white`}>
+      <body className={`${archivo.variable} font-sans antialiased bg-black text-white`}>
+        <SmoothScroll />
         <Header />
         <main>{children}</main>
         <Footer />
