@@ -33,7 +33,7 @@
 }
 
 @theme inline {
-  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-sans: var(--font-archivo), system-ui, sans-serif;
   --font-mono: 'Geist Mono', monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -66,6 +66,41 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* Room drawing: the four trade layers slide together on load */
+.drawing-assemble {
+  transform-origin: 410px 300px;
+  animation: drawing-assemble 1.5s cubic-bezier(0.65, 0, 0.25, 1) both;
+}
+.drawing-fade {
+  animation: drawing-fade 1.5s ease both;
+}
+@keyframes drawing-assemble {
+  0%,
+  15% {
+    transform: var(--assemble-from);
+  }
+  100% {
+    transform: none;
+  }
+}
+@keyframes drawing-fade {
+  0%,
+  40% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .drawing *,
+  .drawing-assemble,
+  .drawing-fade {
+    animation: none !important;
+    transition: none !important;
   }
 }
 

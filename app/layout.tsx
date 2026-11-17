@@ -1,14 +1,14 @@
 import type { Metadata, Viewport } from 'next'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
-import { Inter } from 'next/font/google'
+import { Archivo } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import Script from 'next/script'
 import './globals.css'
 
-const inter = Inter({
+const archivo = Archivo({
   subsets: ["latin"],
-  variable: '--font-inter',
+  variable: '--font-archivo',
 })
 
 export const metadata: Metadata = {
@@ -42,7 +42,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.variable} font-sans antialiased bg-[#0A0A0A] text-white`}>
+      <body className={`${archivo.variable} font-sans antialiased bg-[#0C0F13] text-white`}>
         <Header />
         <main>{children}</main>
         <Footer />

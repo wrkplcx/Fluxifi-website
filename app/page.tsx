@@ -1,7 +1,9 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import { ImageSlot } from "@/components/site/image-slot"
-import { Body, CtaButton, PlainHeading, PlainSection, Step } from "@/components/site/plain"
+import { Body, Container, CtaButton, PlainHeading, PlainSection, linkClass } from "@/components/site/plain"
+import { RoomDrawing } from "@/components/drawing/room-drawing"
+import { PartsScroller } from "@/components/drawing/parts-scroller"
 
 export const metadata: Metadata = {
   title: { absolute: "Fluxifi: AV, IT, Cabling and Security Design and Management" },
@@ -15,131 +17,190 @@ const STATS = [
   { value: "98%", label: "of projects on time" },
 ]
 
+const TRADES = [
+  { word: "AV.", color: "#F4A023" },
+  { word: "Network.", color: "#4DA3FF" },
+  { word: "Cabling.", color: "#3ECF8E" },
+  { word: "Security.", color: "#FF5C5C" },
+]
+
+const huge = "font-extrabold tracking-[-0.035em] leading-[0.95]"
+
 export default function Home() {
   return (
-    <>
-      <PlainSection first>
-        <PlainHeading as="h1">Fluxifi designs, manages and supports the technology in your buildings.</PlainHeading>
-        <p className="mt-10 text-3xl font-medium text-white md:text-5xl">AV. Network. Cabling. Security.</p>
-        <p className="mt-6 text-xl text-white/70 md:text-2xl">One team. One contract. One monthly fee.</p>
-        <div className="mt-12">
-          <CtaButton label="Book a call" />
-        </div>
-        <ImageSlot
-          slot="hero-image"
-          alt="3D model of a conference room with displays, camera and speakers"
-          className="mt-24 aspect-[16/9]"
-          priority
-        />
-      </PlainSection>
-
-      <PlainSection>
-        <PlainHeading>There are three parts.</PlainHeading>
-
-        <Step
-          ordinal="First,"
-          title="we design it."
-          images={
-            <div className="grid gap-6 md:grid-cols-2">
-              <ImageSlot slot="work-1" alt="Drawing set covering AV, network, cabling and security" className="aspect-[4/3]" />
-              <ImageSlot slot="work-3" alt="3D model of a room" className="aspect-[4/3]" />
+    <div className="bg-[#0C0F13] text-[#F3F5F7]">
+      {/* Hero */}
+      <section className="overflow-x-clip pt-36 pb-24 md:pt-44 md:pb-32">
+        <div className="mx-auto grid max-w-[1440px] items-center gap-16 px-6 md:px-12 lg:grid-cols-12 lg:pr-0 lg:pl-20">
+          <div className="lg:col-span-6">
+            <PlainHeading as="h1">Fluxifi designs, manages and supports the technology in your buildings.</PlainHeading>
+            <p className="mt-10 flex flex-wrap gap-x-3 text-[28px] font-bold tracking-[-0.02em] md:text-[36px]">
+              {TRADES.map((t) => (
+                <span key={t.word} style={{ color: t.color }}>
+                  {t.word}
+                </span>
+              ))}
+            </p>
+            <p className="mt-4 text-xl leading-normal text-[#8A94A3]">One team. One contract. One monthly fee.</p>
+            <div className="mt-12">
+              <CtaButton label="Book a call" />
             </div>
-          }
-        >
-          <p>
-            You get one drawing set covering all four trades, a 3D model of every room, and an equipment list with
-            part numbers. Contractors build from our drawings.
-          </p>
-        </Step>
+          </div>
+          <div className="lg:col-span-6">
+            <RoomDrawing assemble className="lg:w-[118%]" />
+          </div>
+        </div>
+      </section>
 
-        <Step
-          ordinal="Second,"
-          title="we manage the build."
-          images={<ImageSlot slot="work-4" alt="Build in progress on site" className="aspect-[16/9]" />}
-        >
-          <p>We bid it, pick the installers, and run the schedule and the budget.</p>
-          <p>We test every room before you move in.</p>
-        </Step>
+      {/* Three parts */}
+      <section className="py-28 md:py-40">
+        <Container>
+          <PlainHeading>There are three parts.</PlainHeading>
+          <PartsScroller
+            parts={[
+              {
+                numeral: "1",
+                heading: "First, we design it.",
+                body: (
+                  <p>
+                    You get one drawing set covering all four trades, a 3D model of every room, and an equipment list
+                    with part numbers. Contractors build from our drawings.
+                  </p>
+                ),
+                media: (
+                  <div className="space-y-6">
+                    <ImageSlot
+                      slot="work-1"
+                      alt="Drawing set covering AV, network, cabling and security"
+                      className="aspect-[16/9]"
+                      frame="square"
+                      hideIfEmpty
+                    />
+                    <ImageSlot slot="work-3" alt="3D model of a room" className="aspect-[16/9]" frame="square" hideIfEmpty />
+                  </div>
+                ),
+              },
+              {
+                numeral: "2",
+                heading: "Second, we manage the build.",
+                body: (
+                  <>
+                    <p>We bid it, pick the installers, and run the schedule and the budget.</p>
+                    <p>We test every room before you move in.</p>
+                  </>
+                ),
+                media: (
+                  <ImageSlot slot="work-4" alt="Build in progress on site" className="aspect-[16/9]" frame="square" hideIfEmpty />
+                ),
+              },
+              {
+                numeral: "3",
+                heading: "Third, we support it.",
+                body: (
+                  <>
+                    <p>When something breaks, you call us. We find the cause and send the right vendor.</p>
+                    <p>
+                      {"We keep the record of what's installed in every room in "}
+                      <Link href="/glass" className={linkClass}>
+                        Fluxifi Glass
+                      </Link>
+                      , our platform. You own it.
+                    </p>
+                  </>
+                ),
+                media: (
+                  <ImageSlot
+                    slot="work-6"
+                    alt="Installed room record in Fluxifi Glass"
+                    className="aspect-[16/9]"
+                    frame="square"
+                    hideIfEmpty
+                  />
+                ),
+              },
+            ]}
+          />
+        </Container>
+      </section>
 
-        <Step
-          ordinal="Third,"
-          title="we support it."
-          images={<ImageSlot slot="work-6" alt="Installed room record in Fluxifi Glass" className="aspect-[16/9]" />}
-        >
-          <p>When something breaks, you call us. We find the cause and send the right vendor.</p>
-          <p>
-            {"We keep the record of what's installed in every room in "}
-            <Link href="/glass" className="text-white underline underline-offset-4 hover:text-[#F4A023]">
-              Fluxifi Glass
-            </Link>
-            , our platform. You own it.
-          </p>
-        </Step>
-      </PlainSection>
-
-      <PlainSection>
+      {/* Why */}
+      <PlainSection tone="sheet">
         <PlainHeading>Why</PlainHeading>
-        <Body>
+        <Body tone="sheet">
           <p>Today you hire four vendors. Each one draws its own piece. Nobody checks that the pieces fit.</p>
           <p>So the problems show up on site, where they cost the most.</p>
-          <p>{"We put all four on one drawing, under one contract. That's the whole idea."}</p>
+          <p>We put all four on one drawing, under one contract.</p>
         </Body>
+        <p className={`mt-16 text-[56px] md:text-[96px] lg:text-[128px] ${huge}`}>{"That's the whole idea."}</p>
       </PlainSection>
 
+      {/* What we don't do */}
       <PlainSection>
         <PlainHeading>{"What we don't do"}</PlainHeading>
-        <Body>
-          <p>{"We don't sell equipment. We don't take commissions. We don't install."}</p>
-          <p>{"We work for you. That's why we can tell you when a vendor is wrong."}</p>
-        </Body>
+        <p className={`mt-16 text-[44px] md:text-[80px] lg:text-[120px] ${huge}`}>
+          <span className="block">{"We don't sell equipment."}</span>
+          <span className="block">{"We don't take commissions."}</span>
+          <span className="block">{"We don't install."}</span>
+        </p>
+        <div className="mt-16 lg:grid lg:grid-cols-12">
+          <p className="max-w-[600px] text-xl leading-normal text-[#8A94A3] lg:col-span-5 lg:col-start-8">
+            {"We work for you. That's why we can tell you when a vendor is wrong."}
+          </p>
+        </div>
       </PlainSection>
 
-      <PlainSection>
+      {/* Proof */}
+      <PlainSection className="border-t border-white/10">
         <PlainHeading>Proof</PlainHeading>
-        <Body>
-          <p>
-            One client has 80 offices and 400 rooms. We run all 15 to 20 of their projects a year under one contract.
-          </p>
-        </Body>
-        <dl className="mt-20 grid gap-12 md:grid-cols-3">
-          {STATS.map((s) => (
-            <div key={s.value}>
-              <dt className="sr-only">{s.label}</dt>
-              <dd>
-                <span className="block text-6xl font-semibold tracking-tight text-white md:text-7xl">{s.value}</span>
-                <span className="mt-3 block text-lg text-white/70">{s.label}</span>
-              </dd>
+        <p className="mt-12 max-w-[1100px] text-[32px] font-bold leading-[1.1] tracking-[-0.025em] text-balance md:text-[48px]">
+          One client has 80 offices and 400 rooms. We run all 15 to 20 of their projects a year under one contract.
+        </p>
+        <dl className="mt-20 grid border-y border-white/15 md:grid-cols-3 md:divide-x md:divide-white/15">
+          {STATS.map((s, i) => (
+            <div
+              key={s.value}
+              className={`flex flex-col-reverse py-10 md:px-10 md:first:pl-0 ${i > 0 ? "border-t border-white/15 md:border-t-0" : ""}`}
+            >
+              <dt className="mt-3 text-lg text-[#8A94A3]">{s.label}</dt>
+              <dd className={`text-[72px] md:text-[96px] lg:text-[120px] ${huge}`}>{s.value}</dd>
             </div>
           ))}
         </dl>
-        <p className="mt-20 max-w-[640px] text-lg leading-relaxed text-white/70 md:text-xl">
+        <p className="mt-16 max-w-[600px] text-xl leading-normal text-[#8A94A3]">
           15 years doing this, as an integrator, a manufacturer and a consultant.
         </p>
       </PlainSection>
 
-      <PlainSection>
+      {/* Who it's for */}
+      <PlainSection className="border-t border-white/10">
         <PlainHeading>{"Who it's for"}</PlainHeading>
         <Body>
           <p>Companies with many locations. And the architects and general contractors who build for them.</p>
         </Body>
       </PlainSection>
 
-      <PlainSection>
-        <PlainHeading>Price</PlainHeading>
-        <Body>
-          <p>Programs start at $19,000 a month. A 30-day audit is $9,000.</p>
-        </Body>
-      </PlainSection>
+      {/* Price */}
+      <section aria-labelledby="price-heading" className="border-t border-white/10 py-28 md:py-40">
+        <Container>
+          <h2 id="price-heading" className="sr-only">
+            Price
+          </h2>
+          <p className={`max-w-[1200px] text-balance text-[48px] md:text-[72px] lg:text-[88px] ${huge}`}>
+            Programs start at $19,000 a month. A 30-day audit is $9,000.
+          </p>
+        </Container>
+      </section>
 
-      <PlainSection>
+      {/* Final call */}
+      <PlainSection tone="amber">
         <PlainHeading>Send us one floor plan.</PlainHeading>
-        <Body>
-          <p>{"We'll model the room and show you what we'd change."}</p>
+        <Body tone="amber">
+          <p className="text-[#0C0F13]">{"We'll model the room and show you what we'd change."}</p>
         </Body>
         <div className="mt-12">
-          <CtaButton label="Book a call" />
+          <CtaButton label="Book a call" variant="dark" />
         </div>
       </PlainSection>
-    </>
+    </div>
   )
 }
